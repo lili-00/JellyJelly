@@ -1,0 +1,563 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		0A8CB4942DEE39AB00CC921E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A8CB4792DEE39A800CC921E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0A8CB4802DEE39A800CC921E;
+			remoteInfo = JellyJelly;
+		};
+		0A8CB49E2DEE39AB00CC921E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A8CB4792DEE39A800CC921E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0A8CB4802DEE39A800CC921E;
+			remoteInfo = JellyJelly;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0A8CB4812DEE39A800CC921E /* JellyJelly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JellyJelly.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A8CB4932DEE39AB00CC921E /* JellyJellyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JellyJellyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A8CB49D2DEE39AB00CC921E /* JellyJellyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JellyJellyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		0A8CB4832DEE39A800CC921E /* JellyJelly */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = JellyJelly;
+			sourceTree = "<group>";
+		};
+		0A8CB4962DEE39AB00CC921E /* JellyJellyTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = JellyJellyTests;
+			sourceTree = "<group>";
+		};
+		0A8CB4A02DEE39AB00CC921E /* JellyJellyUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = JellyJellyUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0A8CB47E2DEE39A800CC921E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0A8CB4902DEE39AB00CC921E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0A8CB49A2DEE39AB00CC921E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0A8CB4782DEE39A800CC921E = {
+			isa = PBXGroup;
+			children = (
+				0A8CB4832DEE39A800CC921E /* JellyJelly */,
+				0A8CB4962DEE39AB00CC921E /* JellyJellyTests */,
+				0A8CB4A02DEE39AB00CC921E /* JellyJellyUITests */,
+				0A8CB4822DEE39A800CC921E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0A8CB4822DEE39A800CC921E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0A8CB4812DEE39A800CC921E /* JellyJelly.app */,
+				0A8CB4932DEE39AB00CC921E /* JellyJellyTests.xctest */,
+				0A8CB49D2DEE39AB00CC921E /* JellyJellyUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0A8CB4802DEE39A800CC921E /* JellyJelly */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0A8CB4A72DEE39AB00CC921E /* Build configuration list for PBXNativeTarget "JellyJelly" */;
+			buildPhases = (
+				0A8CB47D2DEE39A800CC921E /* Sources */,
+				0A8CB47E2DEE39A800CC921E /* Frameworks */,
+				0A8CB47F2DEE39A800CC921E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				0A8CB4832DEE39A800CC921E /* JellyJelly */,
+			);
+			name = JellyJelly;
+			packageProductDependencies = (
+			);
+			productName = JellyJelly;
+			productReference = 0A8CB4812DEE39A800CC921E /* JellyJelly.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0A8CB4922DEE39AB00CC921E /* JellyJellyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0A8CB4AA2DEE39AB00CC921E /* Build configuration list for PBXNativeTarget "JellyJellyTests" */;
+			buildPhases = (
+				0A8CB48F2DEE39AB00CC921E /* Sources */,
+				0A8CB4902DEE39AB00CC921E /* Frameworks */,
+				0A8CB4912DEE39AB00CC921E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0A8CB4952DEE39AB00CC921E /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				0A8CB4962DEE39AB00CC921E /* JellyJellyTests */,
+			);
+			name = JellyJellyTests;
+			packageProductDependencies = (
+			);
+			productName = JellyJellyTests;
+			productReference = 0A8CB4932DEE39AB00CC921E /* JellyJellyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		0A8CB49C2DEE39AB00CC921E /* JellyJellyUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0A8CB4AD2DEE39AB00CC921E /* Build configuration list for PBXNativeTarget "JellyJellyUITests" */;
+			buildPhases = (
+				0A8CB4992DEE39AB00CC921E /* Sources */,
+				0A8CB49A2DEE39AB00CC921E /* Frameworks */,
+				0A8CB49B2DEE39AB00CC921E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0A8CB49F2DEE39AB00CC921E /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				0A8CB4A02DEE39AB00CC921E /* JellyJellyUITests */,
+			);
+			name = JellyJellyUITests;
+			packageProductDependencies = (
+			);
+			productName = JellyJellyUITests;
+			productReference = 0A8CB49D2DEE39AB00CC921E /* JellyJellyUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0A8CB4792DEE39A800CC921E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1630;
+				LastUpgradeCheck = 1630;
+				TargetAttributes = {
+					0A8CB4802DEE39A800CC921E = {
+						CreatedOnToolsVersion = 16.3;
+					};
+					0A8CB4922DEE39AB00CC921E = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = 0A8CB4802DEE39A800CC921E;
+					};
+					0A8CB49C2DEE39AB00CC921E = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = 0A8CB4802DEE39A800CC921E;
+					};
+				};
+			};
+			buildConfigurationList = 0A8CB47C2DEE39A800CC921E /* Build configuration list for PBXProject "JellyJelly" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0A8CB4782DEE39A800CC921E;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 0A8CB4822DEE39A800CC921E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0A8CB4802DEE39A800CC921E /* JellyJelly */,
+				0A8CB4922DEE39AB00CC921E /* JellyJellyTests */,
+				0A8CB49C2DEE39AB00CC921E /* JellyJellyUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0A8CB47F2DEE39A800CC921E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0A8CB4912DEE39AB00CC921E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0A8CB49B2DEE39AB00CC921E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0A8CB47D2DEE39A800CC921E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0A8CB48F2DEE39AB00CC921E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0A8CB4992DEE39AB00CC921E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0A8CB4952DEE39AB00CC921E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0A8CB4802DEE39A800CC921E /* JellyJelly */;
+			targetProxy = 0A8CB4942DEE39AB00CC921E /* PBXContainerItemProxy */;
+		};
+		0A8CB49F2DEE39AB00CC921E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0A8CB4802DEE39A800CC921E /* JellyJelly */;
+			targetProxy = 0A8CB49E2DEE39AB00CC921E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0A8CB4A52DEE39AB00CC921E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = U5KYB239ML;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		0A8CB4A62DEE39AB00CC921E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = U5KYB239ML;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0A8CB4A82DEE39AB00CC921E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = U5KYB239ML;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.li.JellyJelly;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0A8CB4A92DEE39AB00CC921E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = U5KYB239ML;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.li.JellyJelly;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		0A8CB4AB2DEE39AB00CC921E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = U5KYB239ML;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.li.JellyJellyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JellyJelly.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/JellyJelly";
+			};
+			name = Debug;
+		};
+		0A8CB4AC2DEE39AB00CC921E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = U5KYB239ML;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.li.JellyJellyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JellyJelly.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/JellyJelly";
+			};
+			name = Release;
+		};
+		0A8CB4AE2DEE39AB00CC921E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = U5KYB239ML;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.li.JellyJellyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = JellyJelly;
+			};
+			name = Debug;
+		};
+		0A8CB4AF2DEE39AB00CC921E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = U5KYB239ML;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.li.JellyJellyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = JellyJelly;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0A8CB47C2DEE39A800CC921E /* Build configuration list for PBXProject "JellyJelly" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A8CB4A52DEE39AB00CC921E /* Debug */,
+				0A8CB4A62DEE39AB00CC921E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0A8CB4A72DEE39AB00CC921E /* Build configuration list for PBXNativeTarget "JellyJelly" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A8CB4A82DEE39AB00CC921E /* Debug */,
+				0A8CB4A92DEE39AB00CC921E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0A8CB4AA2DEE39AB00CC921E /* Build configuration list for PBXNativeTarget "JellyJellyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A8CB4AB2DEE39AB00CC921E /* Debug */,
+				0A8CB4AC2DEE39AB00CC921E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0A8CB4AD2DEE39AB00CC921E /* Build configuration list for PBXNativeTarget "JellyJellyUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A8CB4AE2DEE39AB00CC921E /* Debug */,
+				0A8CB4AF2DEE39AB00CC921E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0A8CB4792DEE39A800CC921E /* Project object */;
+}
