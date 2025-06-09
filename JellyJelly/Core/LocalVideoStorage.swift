@@ -9,12 +9,10 @@ class LocalVideoStorage: ObservableObject {
     
     private let documentsDirectory: URL
     private let videosDirectoryName = "DualVideos"
-    private let tempRecordingsDirectoryName = "TempRecordings"
     
     private init() {
         documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         createVideosDirectoryIfNeeded()
-        cleanupTempRecordings()
         loadVideos()
     }
     
@@ -25,26 +23,19 @@ class LocalVideoStorage: ObservableObject {
         }
     }
     
-    // Clean up any leftover temporary recordings
-    private func cleanupTempRecordings() {
-        let tempDirectory = documentsDirectory.appendingPathComponent(tempRecordingsDirectoryName)
-        if FileManager.default.fileExists(atPath: tempDirectory.path) {
-            do {
-                try FileManager.default.removeItem(at: tempDirectory)
-                print("Cleaned up temporary recordings directory")
-            } catch {
-                print("Failed to clean up temporary recordings: \(error)")
-            }
-        }
-    }
-    
     func saveVideo(url: URL) {
         let videosDirectory = documentsDirectory.appendingPathComponent(videosDirectoryName)
         let fileName = "DualVideo_\(Date().timeIntervalSince1970).mp4"
         let destinationURL = videosDirectory.appendingPathComponent(fileName)
         
         do {
-            // Move video to videos directory
+            // Make sure the source video exists
+            guard FileManager.default.fileExists(atPath: url.path) else {
+                print("Error: Source video file does not exist at \(url.path)")
+                return
+            }
+            
+            // Copy video to videos directory (use copy instead of move for reliability)
             try FileManager.default.copyItem(at: url, to: destinationURL)
             
             // Generate thumbnail
@@ -77,7 +68,11 @@ class LocalVideoStorage: ObservableObject {
         do {
             let fileURLs = try FileManager.default.contentsOfDirectory(at: videosDirectory, includingPropertiesForKeys: [.creationDateKey], options: [])
             
-            let videoURLs = fileURLs.filter { $0.pathExtension.lowercased() == "mp4" }
+            // Support both .mp4 and .mov files
+            let videoURLs = fileURLs.filter { 
+                let ext = $0.pathExtension.lowercased()
+                return ext == "mp4" || ext == "mov"
+            }
             
             var loadedVideos: [LocalVideo] = []
             
@@ -146,6 +141,10 @@ class LocalVideoStorage: ObservableObject {
         } catch {
             print("Failed to delete video: \(error)")
         }
+    }
+    
+    func refreshVideos() {
+        loadVideos()
     }
 }
 

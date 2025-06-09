@@ -29,33 +29,9 @@
 		0A8CB49D2DEE39AB00CC921E /* JellyJellyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JellyJellyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		0A789A122DF66CE200884133 /* Exceptions for "JellyJelly" folder in "JellyJelly" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				JellyJelly.xcdatamodeld,
-			);
-			target = 0A8CB4802DEE39A800CC921E /* JellyJelly */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		0A789A132DF66CE200884133 /* Exceptions for "JellyJelly" folder in "Compile Sources" phase from "JellyJelly" target */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			buildPhase = 0A8CB47D2DEE39A800CC921E /* Sources */;
-			membershipExceptions = (
-				JellyJelly.xcdatamodeld,
-			);
-		};
-/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		0A789A052DF66CE200884133 /* JellyJelly */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				0A789A122DF66CE200884133 /* Exceptions for "JellyJelly" folder in "JellyJelly" target */,
-				0A789A132DF66CE200884133 /* Exceptions for "JellyJelly" folder in "Compile Sources" phase from "JellyJelly" target */,
-			);
 			path = JellyJelly;
 			sourceTree = "<group>";
 		};
@@ -426,6 +402,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "JellyJelly needs to access your camera";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "JellyJelly needs to access your microphone";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "JellyJelly needs to use your photo library";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "JellyJelly needs to access Photo Library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -457,6 +434,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "JellyJelly needs to access your camera";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "JellyJelly needs to access your microphone";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "JellyJelly needs to use your photo library";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "JellyJelly needs to access Photo Library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

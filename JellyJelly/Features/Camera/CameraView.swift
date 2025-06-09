@@ -244,36 +244,20 @@ struct CameraPreviewContainerView: View {
                     .hidden()
                     .onAppear {
                         print("🎥 Camera preview active")
-                        print("📱 Front session: \(String(describing: cameraManager.frontCameraPreviewSession))")
-                        print("📱 Back session: \(String(describing: cameraManager.backCameraPreviewSession))")
                     }
             }
             
-            if let frontSession = cameraManager.frontCameraPreviewSession,
-               let backSession = cameraManager.backCameraPreviewSession {
-                // Multi-camera view - split screen
-                VStack(spacing: 0) {
-                    // Top half - Front camera
-                    FrontCameraPreviewView()
-                        .environmentObject(cameraManager)
-                        .frame(height: geometry.size.height / 2)
-                    
-                    // Bottom half - Back camera
-                    BackCameraPreviewView()
-                        .environmentObject(cameraManager)
-                        .frame(height: geometry.size.height / 2)
-                }
-            } else {
-                // If sessions aren't ready yet
-                ZStack {
-                    Color.black.edgesIgnoringSafeArea(.all)
-                    Text("Camera initializing...")
-                        .foregroundColor(.white)
-                        .onAppear {
-                            print("⚠️ Camera sessions not ready")
-                            print("📱 CaptureSession: \(String(describing: cameraManager.captureSession))")
-                        }
-                }
+            // Multi-camera view - split screen
+            VStack(spacing: 0) {
+                // Top half - Front camera
+                FrontCameraPreviewView()
+                    .environmentObject(cameraManager)
+                    .frame(height: geometry.size.height / 2)
+                
+                // Bottom half - Back camera
+                BackCameraPreviewView()
+                    .environmentObject(cameraManager)
+                    .frame(height: geometry.size.height / 2)
             }
         }
     }
@@ -289,29 +273,43 @@ struct FrontCameraPreviewView: UIViewRepresentable {
         let view = UIView(frame: .zero)
         view.backgroundColor = .black
         
-        guard let session = cameraManager.frontCameraPreviewSession else { return view }
-        
-        let previewLayer = AVCaptureVideoPreviewLayer(session: session)
-        previewLayer.videoGravity = .resizeAspectFill
-        previewLayer.connection?.videoOrientation = .portrait
-        previewLayer.connection?.automaticallyAdjustsVideoMirroring = false
-        previewLayer.connection?.isVideoMirrored = true
-        
-        view.layer.addSublayer(previewLayer)
-        
         // Tag for debugging
         view.tag = 1001
-        
-        DispatchQueue.main.async {
-            previewLayer.frame = view.bounds
-        }
         
         return view
     }
     
     func updateUIView(_ uiView: UIView, context: Context) {
-        if let previewLayer = uiView.layer.sublayers?.first as? AVCaptureVideoPreviewLayer {
-            previewLayer.frame = uiView.bounds
+        // Clear existing sublayers first
+        uiView.layer.sublayers?.filter { $0 is AVCaptureVideoPreviewLayer }.forEach { $0.removeFromSuperlayer() }
+        
+        // Add layer if available
+        if let layer = cameraManager.frontPreviewLayer {
+            layer.videoGravity = .resizeAspectFill
+            layer.frame = uiView.bounds
+            
+            // Only add if not already a sublayer
+            let existingLayers = uiView.layer.sublayers?.compactMap { $0 as? AVCaptureVideoPreviewLayer } ?? []
+            if !existingLayers.contains(layer) {
+                uiView.layer.addSublayer(layer)
+                
+                // Force layout
+                layer.frame = uiView.bounds
+                
+                // Debug
+                print("Added front camera preview layer to view")
+                
+                // Force update orientation for portrait mode
+                if let connection = layer.connection, connection.isVideoOrientationSupported {
+                    connection.videoOrientation = .portrait
+                }
+                
+                // Ensure mirroring for front camera
+                if let connection = layer.connection {
+                    connection.automaticallyAdjustsVideoMirroring = false
+                    connection.isVideoMirrored = true
+                }
+            }
         }
     }
 }
@@ -324,27 +322,37 @@ struct BackCameraPreviewView: UIViewRepresentable {
         let view = UIView(frame: .zero)
         view.backgroundColor = .black
         
-        guard let session = cameraManager.backCameraPreviewSession else { return view }
-        
-        let previewLayer = AVCaptureVideoPreviewLayer(session: session)
-        previewLayer.videoGravity = .resizeAspectFill
-        previewLayer.connection?.videoOrientation = .portrait
-        
-        view.layer.addSublayer(previewLayer)
-        
         // Tag for debugging
         view.tag = 1002
-        
-        DispatchQueue.main.async {
-            previewLayer.frame = view.bounds
-        }
         
         return view
     }
     
     func updateUIView(_ uiView: UIView, context: Context) {
-        if let previewLayer = uiView.layer.sublayers?.first as? AVCaptureVideoPreviewLayer {
-            previewLayer.frame = uiView.bounds
+        // Clear existing sublayers first
+        uiView.layer.sublayers?.filter { $0 is AVCaptureVideoPreviewLayer }.forEach { $0.removeFromSuperlayer() }
+        
+        // Add layer if available
+        if let layer = cameraManager.backPreviewLayer {
+            layer.videoGravity = .resizeAspectFill
+            layer.frame = uiView.bounds
+            
+            // Only add if not already a sublayer
+            let existingLayers = uiView.layer.sublayers?.compactMap { $0 as? AVCaptureVideoPreviewLayer } ?? []
+            if !existingLayers.contains(layer) {
+                uiView.layer.addSublayer(layer)
+                
+                // Force layout
+                layer.frame = uiView.bounds
+                
+                // Debug
+                print("Added back camera preview layer to view")
+                
+                // Force update orientation for portrait mode
+                if let connection = layer.connection, connection.isVideoOrientationSupported {
+                    connection.videoOrientation = .portrait
+                }
+            }
         }
     }
 }
@@ -354,25 +362,43 @@ struct CameraPreviewView: UIViewRepresentable {
     let session: AVCaptureSession
     let position: AVCaptureDevice.Position
     
+    func makeCoordinator() -> Coordinator {
+        Coordinator()
+    }
+    
+    class Coordinator {
+        var previewLayer: AVCaptureVideoPreviewLayer?
+    }
+    
     func makeUIView(context: Context) -> UIView {
         let view = UIView(frame: .zero)
         view.backgroundColor = .black
         
         let previewLayer = AVCaptureVideoPreviewLayer(session: session)
         previewLayer.videoGravity = .resizeAspectFill
-        previewLayer.connection?.videoOrientation = .portrait
         
-        // Apply mirroring for front camera
-        if position == .front {
-            previewLayer.connection?.automaticallyAdjustsVideoMirroring = false
-            previewLayer.connection?.isVideoMirrored = true
+        // Set orientation based on what's supported
+        if let connection = previewLayer.connection {
+            if connection.isVideoRotationAngleSupported(.pi/2) {
+                connection.videoRotationAngle = .pi/2 // 90 degrees (portrait)
+            } else if connection.isVideoOrientationSupported {
+                // Fall back to deprecated API with warning
+                #if DEBUG
+                print("Warning: videoRotationAngle not supported in CameraPreviewView, falling back to videoOrientation")
+                #endif
+                connection.videoOrientation = .portrait
+            }
+            
+            // Apply mirroring for front camera
+            if position == .front {
+                connection.automaticallyAdjustsVideoMirroring = false
+                connection.isVideoMirrored = true
+            }
         }
         
+        previewLayer.frame = view.bounds
         view.layer.addSublayer(previewLayer)
-        
-        DispatchQueue.main.async {
-            previewLayer.frame = view.bounds
-        }
+        context.coordinator.previewLayer = previewLayer
         
         return view
     }

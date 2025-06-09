@@ -16,8 +16,10 @@ class DualCameraManager: NSObject, ObservableObject {
     
     // Camera sessions
     var captureSession: AVCaptureSession? // Make optional to prevent force unwrapping
-    var frontCameraPreviewSession: AVCaptureSession?
-    var backCameraPreviewSession: AVCaptureSession?
+    
+    // Preview layers for multicam setup
+    @Published var frontPreviewLayer: AVCaptureVideoPreviewLayer?
+    @Published var backPreviewLayer: AVCaptureVideoPreviewLayer?
     
     // Inputs for multicam setup
     private var frontCameraInput: AVCaptureDeviceInput?
@@ -46,6 +48,10 @@ class DualCameraManager: NSObject, ObservableObject {
     @Published var recordingInProgress: Bool = false // Alias for isRecording
     @Published var recordingProgress: Double = 0.0
     
+    // Error handling
+    @Published var recordingError: String?
+    @Published var showRecordingError: Bool = false
+    
     // Device status
     @Published var cameraAuthorized = false
     @Published var microphoneAuthorized = false
@@ -72,10 +78,6 @@ class DualCameraManager: NSObject, ObservableObject {
     private var backCameraURL: URL?
     private var activeRecordingCount = 0
     
-    // Error state
-    @Published var recordingError: String?
-    @Published var showRecordingError = false
-    
     // Timer for tracking recording progress
     private var recordingTimer: Timer?
     private var recordingStartTime: Date?
@@ -86,7 +88,7 @@ class DualCameraManager: NSObject, ObservableObject {
     
     override init() {
         super.init()
-        print("DualCameraManager initialized")
+        print("DualCameraManager initializing...")
         setupCamera()
     }
     
@@ -121,7 +123,7 @@ class DualCameraManager: NSObject, ObservableObject {
             // Log camera session status
             DispatchQueue.main.async {
                 self.isSetupComplete = true
-                self.logger.info("Camera setup complete. Sessions: captureSession=\(self.captureSession != nil ? "initialized" : "nil"), frontSession=\(self.frontCameraPreviewSession != nil ? "initialized" : "nil"), backSession=\(self.backCameraPreviewSession != nil ? "initialized" : "nil")")
+                self.logger.info("Camera setup complete. Sessions: captureSession=\(self.captureSession != nil ? "initialized" : "nil")")
                 print("Camera setup complete: captureSession=\(self.captureSession != nil ? "initialized" : "nil")")
             }
         }
@@ -185,75 +187,100 @@ class DualCameraManager: NSObject, ObservableObject {
     // Setup for devices that support multi-camera (iOS 13+ and A12+ chips)
     @available(iOS 13.0, *)
     private func setupMultiCameraMode() {
-        // Create individual camera sessions for preview
-        setupIndividualCameraPreviews()
-        
         // Discover devices
         if let frontDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front) {
             self.frontCamera = frontDevice
-            logger.info("Found front camera: \(frontDevice.localizedName)")
-            print("Found front camera: Front Camera")
+            self.logger.info("Found front camera: \(frontDevice.localizedName)")
+            print("Found front camera: \(frontDevice.localizedName)")
         } else {
-            logger.error("No front camera device found")
+            self.logger.error("No front camera device found")
         }
         
         if let backDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) {
             self.backCamera = backDevice
-            logger.info("Found back camera: \(backDevice.localizedName)")
-            print("Found back camera: Back Camera")
+            self.logger.info("Found back camera: \(backDevice.localizedName)")
+            print("Found back camera: \(backDevice.localizedName)")
         } else {
-            logger.error("No back camera device found")
+            self.logger.error("No back camera device found")
         }
         
-        logger.info("Multi-camera setup is supported on this device")
+        // Check if device supports multi-camera
+        if !AVCaptureMultiCamSession.isMultiCamSupported {
+            self.logger.error("Multi-camera setup is not supported on this device")
+            return
+        }
+        
+        self.logger.info("Multi-camera setup is supported on this device")
         print("Multi-camera setup is supported on this device")
         
-        // Create the multi-camera session for recording
+        // Create multi-camera session
         let session = AVCaptureMultiCamSession()
+        self.multiCamSession = session
+        self.captureSession = session
         
-        guard let frontDevice = frontCamera ?? AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front),
-              let backDevice = backCamera ?? AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back),
-              let audioDevice = AVCaptureDevice.default(for: .audio) else {
-            logger.error("Failed to get required camera devices")
-            print("Failed to get required camera devices")
+        // Start session configuration
+        session.beginConfiguration()
+        
+        // Configure front camera input
+        guard let frontDevice = self.frontCamera,
+              let backDevice = self.backCamera else {
+            self.logger.error("Camera devices not available")
             return
         }
         
         do {
-            // Create inputs
+            // Configure devices for optimal recording settings
+            try self.configureCameraDeviceForRecording(device: frontDevice)
+            try self.configureCameraDeviceForRecording(device: backDevice)
+            
             let frontInput = try AVCaptureDeviceInput(device: frontDevice)
-            let backInput = try AVCaptureDeviceInput(device: backDevice)
-            let audioInput = try AVCaptureDeviceInput(device: audioDevice)
-            
-            // Store for later use
-            self.frontCameraInput = frontInput
-            self.backCameraInput = backInput
-            
-            // Configure session
-            if session.canAddInput(frontInput) &&
-                session.canAddInput(backInput) &&
-                session.canAddInput(audioInput) {
-                
-                session.beginConfiguration()
-                
-                // Add inputs
-                session.addInputWithNoConnections(frontInput)
-                logger.info("Front camera configured for multicam")
+            if session.canAddInput(frontInput) {
+                session.addInput(frontInput)
+                self.frontCameraInput = frontInput
+                self.logger.info("Front camera configured for multicam")
                 print("Front camera configured for multicam")
-                
-                session.addInputWithNoConnections(backInput)
-                logger.info("Back camera configured for multicam")
+            } else {
+                self.logger.error("Cannot add front camera to multicam session")
+                session.commitConfiguration()
+                return
+            }
+            
+            // Configure back camera input
+            let backInput = try AVCaptureDeviceInput(device: backDevice)
+            if session.canAddInput(backInput) {
+                session.addInput(backInput)
+                self.backCameraInput = backInput
+                self.logger.info("Back camera configured for multicam")
                 print("Back camera configured for multicam")
+            } else {
+                self.logger.error("Cannot add back camera to multicam session")
+                session.commitConfiguration()
+                return
+            }
+            
+            // Configure audio input
+            if let audioDevice = AVCaptureDevice.default(for: .audio) {
+                let audioInput = try AVCaptureDeviceInput(device: audioDevice)
+                if session.canAddInput(audioInput) {
+                    session.addInput(audioInput)
+                    self.logger.info("Audio added to multicam session")
+                    print("Audio added to multicam session")
+                }
                 
-                session.addInputWithNoConnections(audioInput)
-                logger.info("Audio added to multicam session")
-                print("Audio added to multicam session")
-                
-                // Setup front camera output
+                // Configure movie file outputs for recording
                 let frontOutput = AVCaptureMovieFileOutput()
-                if session.canAddOutput(frontOutput) {
-                    session.addOutputWithNoConnections(frontOutput)
+                let backOutput = AVCaptureMovieFileOutput()
+                
+                // Set movie fragment interval for better recording
+                frontOutput.movieFragmentInterval = .invalid
+                backOutput.movieFragmentInterval = .invalid
+                
+                if session.canAddOutput(frontOutput) && session.canAddOutput(backOutput) {
+                    session.addOutput(frontOutput)
+                    session.addOutput(backOutput)
+                    
                     self.frontCameraOutput = frontOutput
+                    self.backCameraOutput = backOutput
                     
                     // Connect front camera
                     if let videoPort = frontInput.ports(for: .video, sourceDeviceType: frontDevice.deviceType, sourceDevicePosition: .front).first,
@@ -264,28 +291,28 @@ class DualCameraManager: NSObject, ObservableObject {
                         
                         // Configure front camera connection
                         if session.canAddConnection(frontVideoConnection) && session.canAddConnection(frontAudioConnection) {
-                            frontVideoConnection.videoOrientation = .portrait
+                            // Set orientation based on what's supported
+                            if frontVideoConnection.isVideoRotationAngleSupported(.pi/2) {
+                                frontVideoConnection.videoRotationAngle = .pi/2 // 90 degrees (portrait)
+                            } else {
+                                // Fall back to deprecated API with warning
+                                #if DEBUG
+                                print("Warning: videoRotationAngle not supported, falling back to videoOrientation")
+                                #endif
+                                frontVideoConnection.videoOrientation = .portrait
+                            }
+                            
                             frontVideoConnection.automaticallyAdjustsVideoMirroring = false
                             frontVideoConnection.isVideoMirrored = true
                             
                             session.addConnection(frontVideoConnection)
                             session.addConnection(frontAudioConnection)
-                            logger.info("Front camera connections configured")
+                            self.logger.info("Front camera connections configured")
+                            print("Front camera connections configured")
                         } else {
-                            logger.error("Could not add front camera connections")
+                            self.logger.error("Could not add front camera connections")
                         }
-                    } else {
-                        logger.error("Could not find ports for front camera")
                     }
-                } else {
-                    logger.error("Could not add front camera output")
-                }
-                
-                // Setup back camera output
-                let backOutput = AVCaptureMovieFileOutput()
-                if session.canAddOutput(backOutput) {
-                    session.addOutputWithNoConnections(backOutput)
-                    self.backCameraOutput = backOutput
                     
                     // Connect back camera
                     if let videoPort = backInput.ports(for: .video, sourceDeviceType: backDevice.deviceType, sourceDevicePosition: .back).first,
@@ -296,190 +323,252 @@ class DualCameraManager: NSObject, ObservableObject {
                         
                         // Configure back camera connection
                         if session.canAddConnection(backVideoConnection) && session.canAddConnection(backAudioConnection) {
-                            backVideoConnection.videoOrientation = .portrait
+                            // Set orientation based on what's supported
+                            if backVideoConnection.isVideoRotationAngleSupported(.pi/2) {
+                                backVideoConnection.videoRotationAngle = .pi/2 // 90 degrees (portrait)
+                            } else {
+                                // Fall back to deprecated API with warning
+                                #if DEBUG
+                                print("Warning: videoRotationAngle not supported, falling back to videoOrientation")
+                                #endif
+                                backVideoConnection.videoOrientation = .portrait
+                            }
                             
                             session.addConnection(backVideoConnection)
                             session.addConnection(backAudioConnection)
-                            logger.info("Back camera connections configured")
+                            self.logger.info("Back camera connections configured")
+                            print("Back camera connections configured")
                         } else {
-                            logger.error("Could not add back camera connections")
+                            self.logger.error("Could not add back camera connections")
                         }
-                    } else {
-                        logger.error("Could not find ports for back camera")
                     }
+                    
                 } else {
-                    logger.error("Could not add back camera output")
+                    self.logger.error("Cannot add movie outputs to multicam session")
                 }
-                
-                session.commitConfiguration()
-            } else {
-                logger.error("Cannot add required inputs to multi-cam session")
-            }
-            
-            // Store session and start it
-            self.multiCamSession = session
-            self.captureSession = session
-            
-            logger.info("Starting multicam session")
-            print("Starting multicam session")
-            DispatchQueue.global(qos: .userInitiated).async {
-                session.startRunning()
             }
             
         } catch {
-            logger.error("Error setting up multi-camera mode: \(error.localizedDescription)")
-            print("Error setting up multi-camera mode: \(error.localizedDescription)")
-            // No fallback to single camera mode
+            self.logger.error("Error setting up multicam: \(error.localizedDescription)")
+            print("Error setting up multicam: \(error.localizedDescription)")
+            session.commitConfiguration()
+            return
+        }
+        
+        // Commit configuration
+        session.commitConfiguration()
+        
+        // Debug - print status before session starts
+        self.debugCameraStatus()
+        
+        // Start the session on a background thread
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self else { return }
+            
+            print("Starting camera session...")
+            self.multiCamSession?.startRunning()
+            print("Camera session running: \(self.multiCamSession?.isRunning == true ? "yes" : "no")")
+            
+            // Only create and setup preview layers after session is running
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self, let session = self.multiCamSession else { return }
+                
+                // Use a simpler approach - create layers that just display the session content
+                // The UI will place them in the correct positions
+                let frontLayer = AVCaptureVideoPreviewLayer(session: session)
+                let backLayer = AVCaptureVideoPreviewLayer(session: session)
+                
+                // Set video gravity
+                frontLayer.videoGravity = .resizeAspectFill
+                backLayer.videoGravity = .resizeAspectFill
+                
+                // Set properties for both layers
+                if let connection = frontLayer.connection {
+                    if connection.isVideoOrientationSupported {
+                        connection.videoOrientation = .portrait
+                    }
+                    connection.automaticallyAdjustsVideoMirroring = false
+                    connection.isVideoMirrored = true
+                }
+                
+                if let connection = backLayer.connection {
+                    if connection.isVideoOrientationSupported {
+                        connection.videoOrientation = .portrait
+                    }
+                }
+                
+                // Store the layers for UI access
+                self.frontPreviewLayer = frontLayer
+                self.backPreviewLayer = backLayer
+                
+                print("Preview layers created and assigned")
+                self.debugCameraStatus()
+            }
         }
     }
     
-    // Setup individual camera sessions for preview
-    private func setupIndividualCameraPreviews() {
-        // Setup front camera preview session
-        if let frontDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front) {
-            do {
-                let frontInput = try AVCaptureDeviceInput(device: frontDevice)
-                let frontSession = AVCaptureSession()
-                frontSession.sessionPreset = .high
-                
-                if frontSession.canAddInput(frontInput) {
-                    frontSession.addInput(frontInput)
-                    self.frontCameraPreviewSession = frontSession
-                    
-                    // Start the session on a background thread
-                    DispatchQueue.global(qos: .userInitiated).async {
-                        frontSession.startRunning()
-                    }
-                    
-                    print("Front camera preview session configured")
-                }
-            } catch {
-                print("Error setting up front camera preview: \(error.localizedDescription)")
-            }
+    // Configure camera device for optimal recording
+    private func configureCameraDeviceForRecording(device: AVCaptureDevice) throws {
+        try device.lockForConfiguration()
+        
+        // Set frame rate
+        if device.activeFormat.videoSupportedFrameRateRanges.first?.maxFrameRate ?? 0 > 30 {
+            // Use 30fps for most compatible recording
+            device.activeVideoMinFrameDuration = CMTime(value: 1, timescale: 30)
+            device.activeVideoMaxFrameDuration = CMTime(value: 1, timescale: 30)
         }
         
-        // Setup back camera preview session
-        if let backDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) {
-            do {
-                let backInput = try AVCaptureDeviceInput(device: backDevice)
-                let backSession = AVCaptureSession()
-                backSession.sessionPreset = .high
-                
-                if backSession.canAddInput(backInput) {
-                    backSession.addInput(backInput)
-                    self.backCameraPreviewSession = backSession
-                    
-                    // Start the session on a background thread
-                    DispatchQueue.global(qos: .userInitiated).async {
-                        backSession.startRunning()
-                    }
-                    
-                    print("Back camera preview session configured")
-                }
-            } catch {
-                print("Error setting up back camera preview: \(error.localizedDescription)")
-            }
+        // Set focus mode
+        if device.isFocusModeSupported(.continuousAutoFocus) {
+            device.focusMode = .continuousAutoFocus
         }
         
-        // Set captureSession to multiCamSession
-        captureSession = multiCamSession
+        // Set exposure mode
+        if device.isExposureModeSupported(.continuousAutoExposure) {
+            device.exposureMode = .continuousAutoExposure
+        }
+        
+        // Set white balance mode
+        if device.isWhiteBalanceModeSupported(.continuousAutoWhiteBalance) {
+            device.whiteBalanceMode = .continuousAutoWhiteBalance
+        }
+        
+        device.unlockForConfiguration()
     }
     
     // MARK: - Recording Methods
     
-    // Prepare camera for recording
+    // Prepare for recording
     func prepareForRecording() {
-        logger.info("Preparing for recording")
         print("Preparing for recording")
+        // Additional setup if needed before recording
     }
     
-    // Start recording from both cameras
+    // Start recording
     func startRecording() {
-        guard !isRecording else { return }
-        
-        // Reset error state
-        recordingError = nil
-        showRecordingError = false
-        
-        logger.info("Starting recording")
-        print("Starting recording")
-        
-        // Reset counters
-        activeRecordingCount = 0
-        
-        // Create temp recording directory in Documents folder (more reliable than system tmp)
-        let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let tempRecordingDir = documentsPath.appendingPathComponent("TempRecordings", isDirectory: true)
-        
-        // Ensure the directory exists
-        do {
-            if !FileManager.default.fileExists(atPath: tempRecordingDir.path) {
-                try FileManager.default.createDirectory(at: tempRecordingDir, withIntermediateDirectories: true)
-            }
-        } catch {
-            logger.error("Failed to create temp recording directory: \(error.localizedDescription)")
-            handleRecordingError("Failed to create recording directory")
+        guard !self.isRecording else {
+            self.logger.error("Recording already in progress")
+            print("Recording already in progress")
             return
         }
         
-        // Setup recording paths
-        let frontURL = tempRecordingDir.appendingPathComponent("front_camera_\(Date().timeIntervalSince1970).mov")
-        let backURL = tempRecordingDir.appendingPathComponent("back_camera_\(Date().timeIntervalSince1970).mov")
+        print("Starting recording")
         
-        self.frontCameraURL = frontURL
-        self.backCameraURL = backURL
-        
-        // Start recording timers
-        startRecordingTimer()
-        
-        // Start recording from front camera
-        if let frontOutput = frontCameraOutput {
-            activeRecordingCount += 1
-            frontOutput.startRecording(to: frontURL, recordingDelegate: self)
-            logger.info("Front camera recording started to: \(frontURL.path)")
+        // Make sure we have proper camera setup
+        guard let frontOutput = self.frontCameraOutput,
+              let backOutput = self.backCameraOutput,
+              let session = self.multiCamSession,
+              session.isRunning else {
+            self.logger.error("Cannot start recording - camera not properly set up")
+            print("Cannot start recording - camera not properly set up")
+            self.showRecordingError = true
+            self.recordingError = "Camera is not ready. Please restart the app."
+            return
         }
         
-        // Start recording from back camera
-        if let backOutput = backCameraOutput {
-            activeRecordingCount += 1
-            backOutput.startRecording(to: backURL, recordingDelegate: self)
-            logger.info("Back camera recording started to: \(backURL.path)")
-        }
-        
-        // Update recording state
-        DispatchQueue.main.async {
-            self.isRecording = true
-            self.recordingInProgress = true
+        // Check permission to write to photo library
+        PHPhotoLibrary.requestAuthorization { [weak self] status in
+            guard let self = self else { return }
+            
+            if status != .authorized {
+                DispatchQueue.main.async {
+                    self.showRecordingError = true
+                    self.recordingError = "Please allow access to your photo library to save videos."
+                }
+                return
+            }
+            
+            DispatchQueue.main.async {
+                // Set recording status
+                self.isRecording = true
+                self.recordingInProgress = true
+                
+                // Get temporary file URLs for front and back camera recordings
+                let frontURL = self.getTemporaryFileURL(prefix: "front_camera")
+                let backURL = self.getTemporaryFileURL(prefix: "back_camera")
+                
+                // Start recording timer
+                self.startRecordingTimer()
+                
+                // Start recording with both cameras
+                print("Starting front camera recording to: \(frontURL.path)")
+                frontOutput.startRecording(to: frontURL, recordingDelegate: self)
+                
+                print("Starting back camera recording to: \(backURL.path)")
+                backOutput.startRecording(to: backURL, recordingDelegate: self)
+            }
         }
     }
     
-    // Stop recording from all cameras
+    // Stop recording
     func stopRecording() {
-        logger.info("Stopping recording")
+        guard self.isRecording else {
+            self.logger.error("No recording in progress")
+            print("No recording in progress")
+            return
+        }
+        
         print("Stopping recording")
         
-        // Stop front camera recording
-        frontCameraOutput?.stopRecording()
+        // Stop the recording timer
+        self.recordingTimer?.invalidate()
+        self.recordingTimer = nil
         
-        // Stop back camera recording
-        backCameraOutput?.stopRecording()
+        // Stop recordings for both cameras
+        self.frontCameraOutput?.stopRecording()
+        self.backCameraOutput?.stopRecording()
         
-        // Stop timer
-        stopRecordingTimer()
-        
-        // Update state - recording will be set to false when all recordings have stopped
+        // Reset recording status
         DispatchQueue.main.async {
+            self.isRecording = false
+            self.recordingInProgress = false
             self.recordingProgress = 0.0
+        }
+    }
+    
+    // Save recording to photo library
+    private func saveRecordingToPhotoLibrary(fileURL: URL, isFrontCamera: Bool) {
+        PHPhotoLibrary.requestAuthorization { [weak self] status in
+            guard let self = self else { return }
+            
+            if status == .authorized {
+                PHPhotoLibrary.shared().performChanges({
+                    // Create a new video asset in the photo library
+                    PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: fileURL)
+                }) { success, error in
+                    if success {
+                        let cameraPosition = isFrontCamera ? "front" : "back"
+                        print("Video saved to photo library: \(cameraPosition) camera")
+                        
+                        // Post notification that video was recorded
+                        DispatchQueue.main.async {
+                            NotificationCenter.default.post(name: .videoRecorded, object: nil)
+                        }
+                    } else if let error = error {
+                        print("Error saving video to photo library: \(error.localizedDescription)")
+                        DispatchQueue.main.async {
+                            self.showRecordingError = true
+                            self.recordingError = "Error saving video: \(error.localizedDescription)"
+                        }
+                    }
+                }
+            } else {
+                print("Photo library access not authorized")
+                DispatchQueue.main.async {
+                    self.showRecordingError = true
+                    self.recordingError = "Photo library access not authorized. Please enable in Settings."
+                }
+            }
         }
     }
     
     // MARK: - Timer Methods
     
     private func startRecordingTimer() {
-        recordingStartTime = Date()
+        self.recordingStartTime = Date()
         
         // Create a timer to update recording progress
-        recordingTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
+        self.recordingTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
             guard let self = self,
                   let startTime = self.recordingStartTime else { return }
             
@@ -499,24 +588,85 @@ class DualCameraManager: NSObject, ObservableObject {
     }
     
     private func stopRecordingTimer() {
-        recordingTimer?.invalidate()
-        recordingTimer = nil
-        recordingStartTime = nil
+        self.recordingTimer?.invalidate()
+        self.recordingTimer = nil
+        self.recordingStartTime = nil
     }
     
     // MARK: - Cleanup Methods
     
     func cleanup() {
         // Stop any ongoing recording
-        if isRecording {
-            stopRecording()
+        if self.isRecording {
+            self.stopRecording()
         }
         
-        // Stop sessions
+        // Stop session
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             self?.multiCamSession?.stopRunning()
-            self?.frontCameraPreviewSession?.stopRunning()
-            self?.backCameraPreviewSession?.stopRunning()
+        }
+    }
+    
+    // Add debug method to print camera status
+    private func debugCameraStatus() {
+        self.logger.info("DualCameraManager Status:")
+        self.logger.info("MultiCamSession: \(self.multiCamSession != nil ? "initialized" : "nil")")
+        self.logger.info("MultiCamSession running: \(self.multiCamSession?.isRunning == true ? "yes" : "no")")
+        self.logger.info("FrontCamera: \(self.frontCamera != nil ? "initialized" : "nil")")
+        self.logger.info("BackCamera: \(self.backCamera != nil ? "initialized" : "nil")")
+        self.logger.info("FrontCameraInput: \(self.frontCameraInput != nil ? "initialized" : "nil")")
+        self.logger.info("BackCameraInput: \(self.backCameraInput != nil ? "initialized" : "nil")")
+        self.logger.info("FrontCameraOutput: \(self.frontCameraOutput != nil ? "initialized" : "nil")")
+        self.logger.info("BackCameraOutput: \(self.backCameraOutput != nil ? "initialized" : "nil")")
+        self.logger.info("FrontPreviewLayer: \(self.frontPreviewLayer != nil ? "initialized" : "nil")")
+        self.logger.info("BackPreviewLayer: \(self.backPreviewLayer != nil ? "initialized" : "nil")")
+        
+        // Print to console for easier debugging during development
+        print("---- DualCameraManager Status ----")
+        print("MultiCamSession: \(self.multiCamSession != nil ? "initialized" : "nil")")
+        print("MultiCamSession running: \(self.multiCamSession?.isRunning == true ? "yes" : "no")")
+        print("FrontCamera: \(self.frontCamera != nil ? "initialized" : "nil")")
+        print("BackCamera: \(self.backCamera != nil ? "initialized" : "nil")")
+        print("FrontCameraInput: \(self.frontCameraInput != nil ? "initialized" : "nil")")
+        print("BackCameraInput: \(self.backCameraInput != nil ? "initialized" : "nil")")
+        print("FrontCameraOutput: \(self.frontCameraOutput != nil ? "initialized" : "nil")")
+        print("BackCameraOutput: \(self.backCameraOutput != nil ? "initialized" : "nil")")
+        print("FrontPreviewLayer: \(self.frontPreviewLayer != nil ? "initialized" : "nil")")
+        print("BackPreviewLayer: \(self.backPreviewLayer != nil ? "initialized" : "nil")")
+        print("-------------------------------")
+    }
+    
+    // Get a temporary file URL for recording
+    private func getTemporaryFileURL(prefix: String) -> URL {
+        let tempDir = FileManager.default.temporaryDirectory
+        let timestamp = Date().timeIntervalSince1970
+        return tempDir.appendingPathComponent("\(prefix)_\(timestamp).mov")
+    }
+}
+
+// MARK: - AVCaptureFileOutputRecordingDelegate
+extension DualCameraManager: AVCaptureFileOutputRecordingDelegate {
+    func fileOutput(_ output: AVCaptureFileOutput, didStartRecordingTo fileURL: URL, from connections: [AVCaptureConnection]) {
+        self.logger.info("Recording started to: \(fileURL.path)")
+        print("Recording started to: \(fileURL.path)")
+    }
+    
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        // Handle any recording errors
+        if let error = error {
+            self.logger.error("Recording error: \(error.localizedDescription)")
+            print("Recording error: \(error.localizedDescription)")
+            self.handleRecordingError("Recording failed: \(error.localizedDescription)")
+            return
+        }
+        
+        print("Successfully recorded to: \(outputFileURL.path)")
+        
+        // Save both front and back camera recordings to photo library
+        if output == self.frontCameraOutput {
+            self.saveRecordingToPhotoLibrary(fileURL: outputFileURL, isFrontCamera: true)
+        } else if output == self.backCameraOutput {
+            self.saveRecordingToPhotoLibrary(fileURL: outputFileURL, isFrontCamera: false)
         }
     }
     
@@ -529,71 +679,6 @@ class DualCameraManager: NSObject, ObservableObject {
             self.recordingInProgress = false
             self.recordingProgress = 0.0
             self.stopRecordingTimer()
-        }
-    }
-}
-
-// MARK: - AVCaptureFileOutputRecordingDelegate
-extension DualCameraManager: AVCaptureFileOutputRecordingDelegate {
-    func fileOutput(_ output: AVCaptureFileOutput, didStartRecordingTo fileURL: URL, from connections: [AVCaptureConnection]) {
-        logger.info("Recording started to \(fileURL.path)")
-    }
-    
-    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-        // Handle recording completion
-        if let error = error {
-            logger.error("Error recording to \(outputFileURL.path): \(error.localizedDescription)")
-            print("Error recording: \(error.localizedDescription)")
-            
-            // Check if this was a clean stop despite the error (happens with some iOS versions)
-            if let nsError = error as NSError?,
-               let success = nsError.userInfo[AVErrorRecordingSuccessfullyFinishedKey] as? Bool,
-               success {
-                // The recording was actually successful despite the error
-                logger.info("Recording finished successfully despite error")
-            } else {
-                // This was a genuine error
-                handleRecordingError("Recording failed: \(error.localizedDescription)")
-            }
-        } else {
-            logger.info("Successfully recorded to \(outputFileURL.path)")
-            print("Successfully recorded to: \(outputFileURL.lastPathComponent)")
-            
-            // Save to photo library if it's the back camera recording
-            if output == backCameraOutput {
-                saveToPhotoLibrary(url: outputFileURL)
-            }
-        }
-        
-        // Decrement active recording count
-        activeRecordingCount -= 1
-        
-        // If all recordings have finished, update UI
-        if activeRecordingCount <= 0 {
-            DispatchQueue.main.async {
-                self.isRecording = false
-                self.recordingInProgress = false
-                self.recordingProgress = 0.0
-            }
-        }
-    }
-    
-    // Save video to photo library
-    private func saveToPhotoLibrary(url: URL) {
-        PHPhotoLibrary.requestAuthorization { status in
-            if status == .authorized {
-                PHPhotoLibrary.shared().performChanges({
-                    PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
-                }) { success, error in
-                    if success {
-                        self.logger.info("Video saved to photo library")
-                        print("Video saved to photo library")
-                    } else if let error = error {
-                        self.logger.error("Error saving video to photo library: \(error.localizedDescription)")
-                        print("Error saving video: \(error.localizedDescription)")
-                    }
-                }
-            }
         }
     }
 }
