@@ -9,10 +9,12 @@ class LocalVideoStorage: ObservableObject {
     
     private let documentsDirectory: URL
     private let videosDirectoryName = "DualVideos"
+    private let tempRecordingsDirectoryName = "TempRecordings"
     
     private init() {
         documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         createVideosDirectoryIfNeeded()
+        cleanupTempRecordings()
         loadVideos()
     }
     
@@ -23,6 +25,19 @@ class LocalVideoStorage: ObservableObject {
         }
     }
     
+    // Clean up any leftover temporary recordings
+    private func cleanupTempRecordings() {
+        let tempDirectory = documentsDirectory.appendingPathComponent(tempRecordingsDirectoryName)
+        if FileManager.default.fileExists(atPath: tempDirectory.path) {
+            do {
+                try FileManager.default.removeItem(at: tempDirectory)
+                print("Cleaned up temporary recordings directory")
+            } catch {
+                print("Failed to clean up temporary recordings: \(error)")
+            }
+        }
+    }
+    
     func saveVideo(url: URL) {
         let videosDirectory = documentsDirectory.appendingPathComponent(videosDirectoryName)
         let fileName = "DualVideo_\(Date().timeIntervalSince1970).mp4"
@@ -30,7 +45,7 @@ class LocalVideoStorage: ObservableObject {
         
         do {
             // Move video to videos directory
-            try FileManager.default.moveItem(at: url, to: destinationURL)
+            try FileManager.default.copyItem(at: url, to: destinationURL)
             
             // Generate thumbnail
             let thumbnail = generateVideoThumbnail(url: destinationURL)
@@ -48,6 +63,8 @@ class LocalVideoStorage: ObservableObject {
             DispatchQueue.main.async {
                 self.videos.insert(localVideo, at: 0) // Add to beginning
             }
+            
+            print("Successfully saved video to \(destinationURL.lastPathComponent)")
             
         } catch {
             print("Failed to save video: \(error)")

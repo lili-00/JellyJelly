@@ -2,108 +2,159 @@ import SwiftUI
 import AVFoundation
 
 struct CameraView: View {
-    @StateObject private var cameraManager = DualCameraManager()
+    @StateObject private var viewModel = CameraViewModel()
     @State private var showingSettings = false
     @State private var recordingTimeSelection: DualCameraManager.RecordingTime = .fifteenSeconds
     
     var body: some View {
         ZStack {
-            // Camera preview
-            CameraPreviewContainerView(cameraManager: cameraManager)
-                .edgesIgnoringSafeArea(.all)
-            
-            // UI Controls overlay
-            VStack {
-                // Top controls
-                HStack {
-                    Button(action: {
-                        showingSettings.toggle()
-                    }) {
-                        Image(systemName: "gear")
-                            .font(.system(size: 24))
-                            .foregroundColor(.white)
-                            .padding()
-                    }
-                    
-                    Spacer()
-                    
-                    // Timer selection
-                    HStack(spacing: 20) {
-                        ForEach(DualCameraManager.RecordingTime.allCases) { time in
-                            Button(action: {
-                                cameraManager.recordingTime = time
-                                recordingTimeSelection = time
-                            }) {
-                                Text(time.displayName)
-                                    .foregroundColor(.white)
-                                    .padding(.vertical, 6)
-                                    .padding(.horizontal, 12)
-                                    .background(
-                                        Capsule()
-                                            .fill(recordingTimeSelection == time ? Color.white.opacity(0.3) : Color.black.opacity(0.3))
-                                    )
-                            }
-                        }
-                    }
-                    
-                    Spacer()
-                    
-                    // If single camera mode, add switch camera button
-                    if !cameraManager.isMultiCameraMode {
-                        Button(action: {
-                            cameraManager.switchCamera()
-                        }) {
-                            Image(systemName: "camera.rotate")
-                                .font(.system(size: 24))
-                                .foregroundColor(.white)
-                                .padding()
-                        }
-                    }
-                }
-                .padding(.horizontal)
-                
-                Spacer()
-                
-                // Record button
-                Button(action: {
-                    if cameraManager.recordingInProgress {
-                        cameraManager.stopRecording()
-                    } else {
-                        // Prepare camera before recording
-                        cameraManager.prepareForRecording()
-                        cameraManager.startRecording()
-                    }
-                }) {
+            if viewModel.isMultiCameraSupported {
+                // Camera preview
+                if let cameraManager = viewModel.cameraManager {
                     ZStack {
-                        Circle()
-                            .stroke(Color.white, lineWidth: 4)
-                            .frame(width: 80, height: 80)
+                        CameraPreviewContainerView(cameraManager: cameraManager)
+                            .edgesIgnoringSafeArea(.all)
                         
-                        // Recording progress indicator
-                        Circle()
-                            .trim(from: 0, to: cameraManager.recordingProgress)
-                            .stroke(Color.red, lineWidth: 4)
-                            .frame(width: 80, height: 80)
-                            .rotationEffect(.degrees(-90))
+                        // UI Controls overlay
+                        VStack {
+                            // Top controls
+                            HStack {
+                                Button(action: {
+                                    showingSettings.toggle()
+                                }) {
+                                    Image(systemName: "gear")
+                                        .font(.system(size: 24))
+                                        .foregroundColor(.white)
+                                        .padding()
+                                }
+                                
+                                Spacer()
+                                
+                                // Timer selection
+                                HStack(spacing: 20) {
+                                    ForEach(DualCameraManager.RecordingTime.allCases) { time in
+                                        Button(action: {
+                                            cameraManager.recordingTime = time
+                                            recordingTimeSelection = time
+                                        }) {
+                                            Text(time.displayName)
+                                                .foregroundColor(.white)
+                                                .padding(.vertical, 6)
+                                                .padding(.horizontal, 12)
+                                                .background(
+                                                    Capsule()
+                                                        .fill(recordingTimeSelection == time ? Color.white.opacity(0.3) : Color.black.opacity(0.3))
+                                                )
+                                        }
+                                    }
+                                }
+                                
+                                Spacer()
+                            }
+                            .padding(.horizontal)
+                            
+                            Spacer()
+                            
+                            // Record button
+                            Button(action: {
+                                if cameraManager.recordingInProgress {
+                                    cameraManager.stopRecording()
+                                } else {
+                                    // Prepare camera before recording
+                                    cameraManager.prepareForRecording()
+                                    cameraManager.startRecording()
+                                }
+                            }) {
+                                ZStack {
+                                    Circle()
+                                        .stroke(Color.white, lineWidth: 4)
+                                        .frame(width: 80, height: 80)
+                                    
+                                    // Recording progress indicator
+                                    Circle()
+                                        .trim(from: 0, to: cameraManager.recordingProgress)
+                                        .stroke(Color.red, lineWidth: 4)
+                                        .frame(width: 80, height: 80)
+                                        .rotationEffect(.degrees(-90))
+                                    
+                                    // Record button inner circle
+                                    Circle()
+                                        .fill(cameraManager.recordingInProgress ? Color.red : Color.white)
+                                        .frame(width: 70, height: 70)
+                                }
+                            }
+                            .padding(.bottom, 40)
+                        }
                         
-                        // Record button inner circle
-                        Circle()
-                            .fill(cameraManager.recordingInProgress ? Color.red : Color.white)
-                            .frame(width: 70, height: 70)
+                        // Permission alert
+                        if cameraManager.showPermissionAlert {
+                            PermissionAlertView()
+                                .transition(.opacity)
+                                .animation(.easeInOut, value: cameraManager.showPermissionAlert)
+                        }
+                    }
+                    .alert(isPresented: Binding<Bool>(
+                        get: { cameraManager.showRecordingError },
+                        set: { cameraManager.showRecordingError = $0 }
+                    )) {
+                        Alert(
+                            title: Text("Recording Failed"),
+                            message: Text(cameraManager.recordingError ?? "Could not record video. Please try again."),
+                            dismissButton: .default(Text("OK"))
+                        )
                     }
                 }
-                .padding(.bottom, 40)
-            }
-            
-            // Permission alert
-            if cameraManager.showPermissionAlert {
-                PermissionAlertView()
-                    .transition(.opacity)
-                    .animation(.easeInOut, value: cameraManager.showPermissionAlert)
+            } else {
+                // Device doesn't support multi-camera
+                UnsupportedDeviceView()
             }
         }
         .sheet(isPresented: $showingSettings) {
             SettingsView()
+        }
+        .alert(isPresented: $viewModel.showUnsupportedDeviceAlert) {
+            Alert(
+                title: Text("Device Not Supported"),
+                message: Text("This device does not support simultaneous use of multiple cameras. JellyJelly requires a device with an A12 Bionic chip or newer (iPhone XS/XR or newer)."),
+                dismissButton: .default(Text("OK")) {
+                    viewModel.dismissUnsupportedAlert()
+                }
+            )
+        }
+    }
+}
+
+// Unsupported device view
+struct UnsupportedDeviceView: View {
+    var body: some View {
+        ZStack {
+            Color.black.edgesIgnoringSafeArea(.all)
+            
+            VStack(spacing: 24) {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .font(.system(size: 60))
+                    .foregroundColor(.yellow)
+                
+                Text("Device Not Supported")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                
+                Text("JellyJelly requires a device that supports simultaneous use of multiple cameras (iPhone XS/XR or newer with A12 Bionic chip or later).")
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.white)
+                    .padding(.horizontal)
+                
+                Text("You can still use other features of the app.")
+                    .foregroundColor(.gray)
+                    .padding(.top)
+            }
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color.black.opacity(0.8))
+            )
+            .padding(30)
         }
     }
 }
@@ -188,20 +239,17 @@ struct CameraPreviewContainerView: View {
         GeometryReader { geometry in
             // Debug state of camera manager
             Group {
-                if cameraManager.isMultiCameraMode {
-                    Text("Multi-camera mode: \(cameraManager.isMultiCameraMode ? "Yes" : "No")")
-                        .font(.system(size: 0.1))
-                        .hidden()
-                        .onAppear {
-                            print("🎥 Multi-camera mode: \(cameraManager.isMultiCameraMode)")
-                            print("📱 Front session: \(String(describing: cameraManager.frontCameraPreviewSession))")
-                            print("📱 Back session: \(String(describing: cameraManager.backCameraPreviewSession))")
-                        }
-                }
+                Text("Multi-camera mode active")
+                    .font(.system(size: 0.1))
+                    .hidden()
+                    .onAppear {
+                        print("🎥 Camera preview active")
+                        print("📱 Front session: \(String(describing: cameraManager.frontCameraPreviewSession))")
+                        print("📱 Back session: \(String(describing: cameraManager.backCameraPreviewSession))")
+                    }
             }
             
-            if cameraManager.isMultiCameraMode,
-               let frontSession = cameraManager.frontCameraPreviewSession,
+            if let frontSession = cameraManager.frontCameraPreviewSession,
                let backSession = cameraManager.backCameraPreviewSession {
                 // Multi-camera view - split screen
                 VStack(spacing: 0) {
@@ -216,28 +264,92 @@ struct CameraPreviewContainerView: View {
                         .frame(height: geometry.size.height / 2)
                 }
             } else {
-                // Single camera view - full screen
-                if let session = cameraManager.captureSession {
-                    CameraPreviewView(session: session, position: cameraManager.activePosition)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                } else {
-                    // Fallback if no session is available
-                    ZStack {
-                        Color.black.edgesIgnoringSafeArea(.all)
-                        Text("Camera initializing...")
-                            .foregroundColor(.white)
-                            .onAppear {
-                                print("⚠️ No camera session available!")
-                                print("📱 CaptureSession: \(String(describing: cameraManager.captureSession))")
-                            }
-                    }
+                // If sessions aren't ready yet
+                ZStack {
+                    Color.black.edgesIgnoringSafeArea(.all)
+                    Text("Camera initializing...")
+                        .foregroundColor(.white)
+                        .onAppear {
+                            print("⚠️ Camera sessions not ready")
+                            print("📱 CaptureSession: \(String(describing: cameraManager.captureSession))")
+                        }
                 }
             }
         }
     }
 }
 
-// Standard camera preview view for single camera mode
+// MARK: - Camera Preview Views
+
+// Front camera preview
+struct FrontCameraPreviewView: UIViewRepresentable {
+    @EnvironmentObject var cameraManager: DualCameraManager
+    
+    func makeUIView(context: Context) -> UIView {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = .black
+        
+        guard let session = cameraManager.frontCameraPreviewSession else { return view }
+        
+        let previewLayer = AVCaptureVideoPreviewLayer(session: session)
+        previewLayer.videoGravity = .resizeAspectFill
+        previewLayer.connection?.videoOrientation = .portrait
+        previewLayer.connection?.automaticallyAdjustsVideoMirroring = false
+        previewLayer.connection?.isVideoMirrored = true
+        
+        view.layer.addSublayer(previewLayer)
+        
+        // Tag for debugging
+        view.tag = 1001
+        
+        DispatchQueue.main.async {
+            previewLayer.frame = view.bounds
+        }
+        
+        return view
+    }
+    
+    func updateUIView(_ uiView: UIView, context: Context) {
+        if let previewLayer = uiView.layer.sublayers?.first as? AVCaptureVideoPreviewLayer {
+            previewLayer.frame = uiView.bounds
+        }
+    }
+}
+
+// Back camera preview
+struct BackCameraPreviewView: UIViewRepresentable {
+    @EnvironmentObject var cameraManager: DualCameraManager
+    
+    func makeUIView(context: Context) -> UIView {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = .black
+        
+        guard let session = cameraManager.backCameraPreviewSession else { return view }
+        
+        let previewLayer = AVCaptureVideoPreviewLayer(session: session)
+        previewLayer.videoGravity = .resizeAspectFill
+        previewLayer.connection?.videoOrientation = .portrait
+        
+        view.layer.addSublayer(previewLayer)
+        
+        // Tag for debugging
+        view.tag = 1002
+        
+        DispatchQueue.main.async {
+            previewLayer.frame = view.bounds
+        }
+        
+        return view
+    }
+    
+    func updateUIView(_ uiView: UIView, context: Context) {
+        if let previewLayer = uiView.layer.sublayers?.first as? AVCaptureVideoPreviewLayer {
+            previewLayer.frame = uiView.bounds
+        }
+    }
+}
+
+// Standard camera preview view (not used in this implementation but kept for reference)
 struct CameraPreviewView: UIViewRepresentable {
     let session: AVCaptureSession
     let position: AVCaptureDevice.Position
@@ -248,100 +360,20 @@ struct CameraPreviewView: UIViewRepresentable {
         
         let previewLayer = AVCaptureVideoPreviewLayer(session: session)
         previewLayer.videoGravity = .resizeAspectFill
-        previewLayer.frame = view.bounds
+        previewLayer.connection?.videoOrientation = .portrait
         
-        // Set proper orientation
-        if let connection = previewLayer.connection {
-            connection.videoOrientation = .portrait
-            
-            if position == .front {
-                // IMPORTANT: Must set automaticallyAdjustsVideoMirroring to false BEFORE setting isVideoMirrored
-                connection.automaticallyAdjustsVideoMirroring = false
-                connection.isVideoMirrored = true
-            }
+        // Apply mirroring for front camera
+        if position == .front {
+            previewLayer.connection?.automaticallyAdjustsVideoMirroring = false
+            previewLayer.connection?.isVideoMirrored = true
         }
         
         view.layer.addSublayer(previewLayer)
         
-        return view
-    }
-    
-    func updateUIView(_ uiView: UIView, context: Context) {
-        if let previewLayer = uiView.layer.sublayers?.first as? AVCaptureVideoPreviewLayer {
-            previewLayer.frame = uiView.bounds
-            
-            // Update orientation if needed
-            if let connection = previewLayer.connection {
-                connection.videoOrientation = .portrait
-            }
-        }
-    }
-}
-
-// Front camera preview (uses UIKit for better control)
-struct FrontCameraPreviewView: UIViewRepresentable {
-    @EnvironmentObject var cameraManager: DualCameraManager
-    
-    func makeUIView(context: Context) -> UIView {
-        let view = UIView()
-        view.backgroundColor = .black
-        
-        // Configure a preview layer for the front camera
-        let previewLayer = AVCaptureVideoPreviewLayer()
-        previewLayer.videoGravity = .resizeAspectFill
-        previewLayer.frame = view.bounds
-        
-        // Use the session from camera manager
-        if let frontSession = cameraManager.frontCameraPreviewSession {
-            previewLayer.session = frontSession
-            
-            // Set proper orientation and mirroring
-            if let connection = previewLayer.connection {
-                connection.videoOrientation = .portrait
-                connection.automaticallyAdjustsVideoMirroring = false
-                connection.isVideoMirrored = true
-            }
-        } else {
-            print("⚠️ Front camera session is nil")
+        DispatchQueue.main.async {
+            previewLayer.frame = view.bounds
         }
         
-        view.layer.addSublayer(previewLayer)
-        return view
-    }
-    
-    func updateUIView(_ uiView: UIView, context: Context) {
-        if let previewLayer = uiView.layer.sublayers?.first as? AVCaptureVideoPreviewLayer {
-            previewLayer.frame = uiView.bounds
-        }
-    }
-}
-
-// Back camera preview (uses UIKit for better control)
-struct BackCameraPreviewView: UIViewRepresentable {
-    @EnvironmentObject var cameraManager: DualCameraManager
-    
-    func makeUIView(context: Context) -> UIView {
-        let view = UIView()
-        view.backgroundColor = .black
-        
-        // Configure a preview layer for the back camera
-        let previewLayer = AVCaptureVideoPreviewLayer()
-        previewLayer.videoGravity = .resizeAspectFill
-        previewLayer.frame = view.bounds
-        
-        // Use the session from camera manager
-        if let backSession = cameraManager.backCameraPreviewSession {
-            previewLayer.session = backSession
-            
-            // Set proper orientation
-            if let connection = previewLayer.connection {
-                connection.videoOrientation = .portrait
-            }
-        } else {
-            print("⚠️ Back camera session is nil")
-        }
-        
-        view.layer.addSublayer(previewLayer)
         return view
     }
     
