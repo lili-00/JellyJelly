@@ -1,0 +1,48 @@
+{
+  "source": "/Users/li/Documents/interview/JellyJelly/JellyJelly/JellyJelly/CameraRollView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Camera Roll",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 52
+        }
+      },
+      {
+        "comment": "",
+        "key": "No videos yet",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 26
+        }
+      },
+      {
+        "comment": "",
+        "key": "Record your first dual POV video\nusing the camera tab",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 31
+        }
+      },
+      {
+        "comment": "",
+        "key": "Dual POV Video",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 150
+        }
+      },
+      {
+        "comment": "",
+        "key": "Done",
+        "location": {
+          "startingColumn": 33,
+          "startingLine": 153
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,24 @@
+{
+  "source": "/Users/li/Documents/interview/JellyJelly/JellyJelly/JellyJelly/FeedView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Loading awesome videos...",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 22
+        }
+      },
+      {
+        "comment": "",
+        "key": "Refreshing...",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 68
+        }
+      }
+    ]
+  },
+  "version": 1
+}

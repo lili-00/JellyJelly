@@ -29,9 +29,33 @@
 		0A8CB49D2DEE39AB00CC921E /* JellyJellyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JellyJellyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		0A789A122DF66CE200884133 /* Exceptions for "JellyJelly" folder in "JellyJelly" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				JellyJelly.xcdatamodeld,
+			);
+			target = 0A8CB4802DEE39A800CC921E /* JellyJelly */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		0A789A132DF66CE200884133 /* Exceptions for "JellyJelly" folder in "Compile Sources" phase from "JellyJelly" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = 0A8CB47D2DEE39A800CC921E /* Sources */;
+			membershipExceptions = (
+				JellyJelly.xcdatamodeld,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		0A8CB4832DEE39A800CC921E /* JellyJelly */ = {
+		0A789A052DF66CE200884133 /* JellyJelly */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				0A789A122DF66CE200884133 /* Exceptions for "JellyJelly" folder in "JellyJelly" target */,
+				0A789A132DF66CE200884133 /* Exceptions for "JellyJelly" folder in "Compile Sources" phase from "JellyJelly" target */,
+			);
 			path = JellyJelly;
 			sourceTree = "<group>";
 		};
@@ -75,7 +99,7 @@
 		0A8CB4782DEE39A800CC921E = {
 			isa = PBXGroup;
 			children = (
-				0A8CB4832DEE39A800CC921E /* JellyJelly */,
+				0A789A052DF66CE200884133 /* JellyJelly */,
 				0A8CB4962DEE39AB00CC921E /* JellyJellyTests */,
 				0A8CB4A02DEE39AB00CC921E /* JellyJellyUITests */,
 				0A8CB4822DEE39A800CC921E /* Products */,
@@ -108,7 +132,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				0A8CB4832DEE39A800CC921E /* JellyJelly */,
+				0A789A052DF66CE200884133 /* JellyJelly */,
 			);
 			name = JellyJelly;
 			packageProductDependencies = (
@@ -400,6 +424,9 @@
 				DEVELOPMENT_TEAM = U5KYB239ML;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "JellyJelly needs to access your camera";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "JellyJelly needs to access your microphone";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "JellyJelly needs to access Photo Library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -428,6 +455,9 @@
 				DEVELOPMENT_TEAM = U5KYB239ML;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "JellyJelly needs to access your camera";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "JellyJelly needs to access your microphone";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "JellyJelly needs to access Photo Library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

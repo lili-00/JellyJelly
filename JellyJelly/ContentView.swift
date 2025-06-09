@@ -8,34 +8,43 @@
 import SwiftUI
 import CoreData
 
+// Add the notification name extension
+extension Notification.Name {
+    static let videoRecorded = Notification.Name("videoRecorded")
+}
+
 struct ContentView: View {
+    @State private var selectedTab = 0
+    
     var body: some View {
-        GeometryReader { geometry in
-            TabView {
-                FeedView()
-                    .tabItem {
-                        Image(systemName: "house.fill")
-                        Text("Feed")
-                    }
-                    .tag(0)
-                
-                PlaceholderView(title: "Camera", icon: "camera.fill")
-                    .tabItem {
-                        Image(systemName: "camera.fill")
-                        Text("Camera")
-                    }
-                    .tag(1)
-                
-                PlaceholderView(title: "Camera Roll", icon: "photo.on.rectangle")
-                    .tabItem {
-                        Image(systemName: "photo.on.rectangle")
-                        Text("Camera Roll")
-                    }
-                    .tag(2)
-            }
-            .accentColor(.white)
+        TabView(selection: $selectedTab) {
+            FeedView()
+                .tabItem {
+                    Image(systemName: "house.fill")
+                    Text("Feed")
+                }
+                .tag(0)
+            
+            CameraView()
+                .tabItem {
+                    Image(systemName: "video.fill")
+                    Text("Camera")
+                }
+                .tag(1)
+            
+            CameraRollView()
+                .tabItem {
+                    Image(systemName: "photo.stack.fill")
+                    Text("Library")
+                }
+                .tag(2)
         }
-        .ignoresSafeArea(.all)
+        .accentColor(.green)
+        .preferredColorScheme(.dark)
+        .onReceive(NotificationCenter.default.publisher(for: .videoRecorded)) { _ in
+            // Navigate to Camera Roll when video is recorded
+            selectedTab = 2
+        }
     }
 }
 

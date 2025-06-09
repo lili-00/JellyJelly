@@ -1,0 +1,148 @@
+{
+  "" : {
+    "diagnostics" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/JellyJelly-master.dia",
+    "emit-module-dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/JellyJelly-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/JellyJelly-master-emit-module.dia",
+    "swift-dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/JellyJelly-master.swiftdeps"
+  },
+  "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/DerivedSources/CoreDataGenerated/JellyJelly/Item+CoreDataClass.swift" : {
+    "const-values" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/Item+CoreDataClass.swiftconstvalues",
+    "dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/Item+CoreDataClass.d",
+    "diagnostics" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/Item+CoreDataClass.dia",
+    "index-unit-output-path" : "/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/Item+CoreDataClass.o",
+    "llvm-bc" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/Item+CoreDataClass.bc",
+    "object" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/Item+CoreDataClass.o",
+    "swift-dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/Item+CoreDataClass.swiftdeps",
+    "swiftmodule" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/Item+CoreDataClass~partial.swiftmodule"
+  },
+  "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/DerivedSources/CoreDataGenerated/JellyJelly/Item+CoreDataProperties.swift" : {
+    "const-values" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/Item+CoreDataProperties.swiftconstvalues",
+    "dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/Item+CoreDataProperties.d",
+    "diagnostics" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/Item+CoreDataProperties.dia",
+    "index-unit-output-path" : "/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/Item+CoreDataProperties.o",
+    "llvm-bc" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/Item+CoreDataProperties.bc",
+    "object" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/Item+CoreDataProperties.o",
+    "swift-dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/Item+CoreDataProperties.swiftdeps",
+    "swiftmodule" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/Item+CoreDataProperties~partial.swiftmodule"
+  },
+  "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/DerivedSources/CoreDataGenerated/JellyJelly/JellyJelly+CoreDataModel.swift" : {
+    "const-values" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/JellyJelly+CoreDataModel.swiftconstvalues",
+    "dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/JellyJelly+CoreDataModel.d",
+    "diagnostics" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/JellyJelly+CoreDataModel.dia",
+    "index-unit-output-path" : "/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/JellyJelly+CoreDataModel.o",
+    "llvm-bc" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/JellyJelly+CoreDataModel.bc",
+    "object" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/JellyJelly+CoreDataModel.o",
+    "swift-dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/JellyJelly+CoreDataModel.swiftdeps",
+    "swiftmodule" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/JellyJelly+CoreDataModel~partial.swiftmodule"
+  },
+  "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/GeneratedAssetSymbols.dia",
+    "index-unit-output-path" : "/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftdeps",
+    "swiftmodule" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/GeneratedAssetSymbols~partial.swiftmodule"
+  },
+  "/Users/li/Documents/interview/JellyJelly/JellyJelly/JellyJelly/CameraRollView.swift" : {
+    "const-values" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/CameraRollView.swiftconstvalues",
+    "dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/CameraRollView.d",
+    "diagnostics" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/CameraRollView.dia",
+    "index-unit-output-path" : "/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/CameraRollView.o",
+    "llvm-bc" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/CameraRollView.bc",
+    "object" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/CameraRollView.o",
+    "swift-dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/CameraRollView.swiftdeps",
+    "swiftmodule" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/CameraRollView~partial.swiftmodule"
+  },
+  "/Users/li/Documents/interview/JellyJelly/JellyJelly/JellyJelly/CameraView.swift" : {
+    "const-values" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/CameraView.swiftconstvalues",
+    "dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/CameraView.d",
+    "diagnostics" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/CameraView.dia",
+    "index-unit-output-path" : "/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/CameraView.o",
+    "llvm-bc" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/CameraView.bc",
+    "object" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/CameraView.o",
+    "swift-dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/CameraView.swiftdeps",
+    "swiftmodule" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/CameraView~partial.swiftmodule"
+  },
+  "/Users/li/Documents/interview/JellyJelly/JellyJelly/JellyJelly/ContentView.swift" : {
+    "const-values" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/ContentView.swiftconstvalues",
+    "dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/ContentView.d",
+    "diagnostics" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/ContentView.dia",
+    "index-unit-output-path" : "/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/ContentView.o",
+    "llvm-bc" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/ContentView.bc",
+    "object" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/ContentView.o",
+    "swift-dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/ContentView.swiftdeps",
+    "swiftmodule" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/ContentView~partial.swiftmodule"
+  },
+  "/Users/li/Documents/interview/JellyJelly/JellyJelly/JellyJelly/DualCameraManager.swift" : {
+    "const-values" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/DualCameraManager.swiftconstvalues",
+    "dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/DualCameraManager.d",
+    "diagnostics" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/DualCameraManager.dia",
+    "index-unit-output-path" : "/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/DualCameraManager.o",
+    "llvm-bc" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/DualCameraManager.bc",
+    "object" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/DualCameraManager.o",
+    "swift-dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/DualCameraManager.swiftdeps",
+    "swiftmodule" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/DualCameraManager~partial.swiftmodule"
+  },
+  "/Users/li/Documents/interview/JellyJelly/JellyJelly/JellyJelly/FeedView.swift" : {
+    "const-values" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/FeedView.swiftconstvalues",
+    "dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/FeedView.d",
+    "diagnostics" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/FeedView.dia",
+    "index-unit-output-path" : "/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/FeedView.o",
+    "llvm-bc" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/FeedView.bc",
+    "object" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/FeedView.o",
+    "swift-dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/FeedView.swiftdeps",
+    "swiftmodule" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/FeedView~partial.swiftmodule"
+  },
+  "/Users/li/Documents/interview/JellyJelly/JellyJelly/JellyJelly/JellyJellyApp.swift" : {
+    "const-values" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/JellyJellyApp.swiftconstvalues",
+    "dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/JellyJellyApp.d",
+    "diagnostics" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/JellyJellyApp.dia",
+    "index-unit-output-path" : "/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/JellyJellyApp.o",
+    "llvm-bc" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/JellyJellyApp.bc",
+    "object" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/JellyJellyApp.o",
+    "swift-dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/JellyJellyApp.swiftdeps",
+    "swiftmodule" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/JellyJellyApp~partial.swiftmodule"
+  },
+  "/Users/li/Documents/interview/JellyJelly/JellyJelly/JellyJelly/LocalVideoStorage.swift" : {
+    "const-values" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/LocalVideoStorage.swiftconstvalues",
+    "dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/LocalVideoStorage.d",
+    "diagnostics" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/LocalVideoStorage.dia",
+    "index-unit-output-path" : "/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/LocalVideoStorage.o",
+    "llvm-bc" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/LocalVideoStorage.bc",
+    "object" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/LocalVideoStorage.o",
+    "swift-dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/LocalVideoStorage.swiftdeps",
+    "swiftmodule" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/LocalVideoStorage~partial.swiftmodule"
+  },
+  "/Users/li/Documents/interview/JellyJelly/JellyJelly/JellyJelly/Persistence.swift" : {
+    "const-values" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/Persistence.swiftconstvalues",
+    "dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/Persistence.d",
+    "diagnostics" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/Persistence.dia",
+    "index-unit-output-path" : "/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/Persistence.o",
+    "llvm-bc" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/Persistence.bc",
+    "object" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/Persistence.o",
+    "swift-dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/Persistence.swiftdeps",
+    "swiftmodule" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/Persistence~partial.swiftmodule"
+  },
+  "/Users/li/Documents/interview/JellyJelly/JellyJelly/JellyJelly/VideoModel.swift" : {
+    "const-values" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/VideoModel.swiftconstvalues",
+    "dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/VideoModel.d",
+    "diagnostics" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/VideoModel.dia",
+    "index-unit-output-path" : "/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/VideoModel.o",
+    "llvm-bc" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/VideoModel.bc",
+    "object" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/VideoModel.o",
+    "swift-dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/VideoModel.swiftdeps",
+    "swiftmodule" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/VideoModel~partial.swiftmodule"
+  },
+  "/Users/li/Documents/interview/JellyJelly/JellyJelly/JellyJelly/VideoPlayerView.swift" : {
+    "const-values" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/VideoPlayerView.swiftconstvalues",
+    "dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/VideoPlayerView.d",
+    "diagnostics" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/VideoPlayerView.dia",
+    "index-unit-output-path" : "/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/VideoPlayerView.o",
+    "llvm-bc" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/VideoPlayerView.bc",
+    "object" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/VideoPlayerView.o",
+    "swift-dependencies" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/VideoPlayerView.swiftdeps",
+    "swiftmodule" : "/Users/li/Documents/interview/JellyJelly/JellyJelly/DerivedData/Build/Intermediates.noindex/JellyJelly.build/Debug-iphonesimulator/JellyJelly.build/Objects-normal/arm64/VideoPlayerView~partial.swiftmodule"
+  }
+}

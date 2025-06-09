@@ -1,0 +1,32 @@
+{
+  "source": "/Users/li/Documents/interview/JellyJelly/JellyJelly/JellyJelly/CameraView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Camera Error",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 116
+        }
+      },
+      {
+        "comment": "",
+        "key": "Setting up camera...",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 107
+        }
+      },
+      {
+        "comment": "",
+        "key": "OK",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 117
+        }
+      }
+    ]
+  },
+  "version": 1
+}
